@@ -26,7 +26,8 @@ def auth_token_request():
     response = requests.post(url, headers=headers, data=payload, verify=False)
 
     response = loads(response.text)
-    set_config(session, normalize_unix(response['expires_at']), response['expires_in'], response['access_token'])
+    print(response)
+    set_config(session, normalize_unix(response['expires_at']),1800, response['access_token'])
     return response
 
 

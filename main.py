@@ -4,7 +4,7 @@ from json import loads
 from fastapi import FastAPI, Response
 
 from call import call
-from diagrams import generateChart
+from diagrams import generateChart, generateTimeChart
 
 app = FastAPI(title="Получение предложений действий от И")
 
@@ -84,4 +84,10 @@ def call_admin(phone_number: str):
 @app.get("/generate_chart/{total_space}/{used_space}")
 def generate_chart(total_space: float, used_space: float):
     chart_data = generateChart(total_space, used_space)
+    return Response(content=chart_data, media_type="image/png")
+
+
+@app.post("/generateTimeChart")
+def generate_time_chart(data: dict):
+    chart_data = generateTimeChart(data["data"])
     return Response(content=chart_data, media_type="image/png")
